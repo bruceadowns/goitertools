@@ -2,15 +2,14 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-//itertools is a (limited) port of Python's itertools module.
+// Package itertools is a (limited) port of Python's itertools module.
 package itertools
 
-// Count returns a slice with step-spaced values from the range 
+// Count returns a slice with step-spaced values from the range
 // beginning with start and ending before stop.
 //
 //  Count(1, 10, 1) -> [1 2 3 4 5 6 7 8 9]
 func Count(start, stop, step int) []int {
-
 	if step*(stop-start) <= 0 {
 		return nil
 	}
@@ -30,7 +29,6 @@ func Count(start, stop, step int) []int {
 //
 //  Cycle([]int{1, 2, 3, 4}, 6) -> [1 2 3 4 1 2]
 func Cycle(iterable []int, n int) []int {
-
 	m := len(iterable)
 	if n < 0 || m == 0 {
 		return nil
@@ -49,7 +47,6 @@ func Cycle(iterable []int, n int) []int {
 //
 //  Repeat(10, 5) -> [10 10 10 10 10]
 func Repeat(element, n int) []int {
-
 	if n < 0 {
 		return nil
 	}
@@ -64,11 +61,10 @@ func Repeat(element, n int) []int {
 }
 
 // Chain returns a slice consisting of the elements within iterables.
-// 
+//
 // Used for treating consecutive sequences as a single sequence.
 //  Chain([]int{1, 2, 3}, []int{4, 5, 6}) -> [1 2 3 4 5 6]
 func Chain(iterables ...[]int) []int {
-
 	results := []int{}
 
 	for _, v := range iterables {
@@ -76,17 +72,15 @@ func Chain(iterables ...[]int) []int {
 	}
 
 	return results
-
 }
 
 // Compress returns a slice based on data compressed by selectors.
-// 
-// Elements in data are included in the returned slice if they have a 
-// correspondig element in selectors that is greater than 0. Stops 
-// when either the data or selectors iterables has been exhausted. 
+//
+// Elements in data are included in the returned slice if they have a
+// correspondig element in selectors that is greater than 0. Stops
+// when either the data or selectors iterables has been exhausted.
 //  Compress([]int{1, 2, 3}, []int{0, 1, 1}) -> [2 3]
 func Compress(data, selectors []int) []int {
-
 	n := len(data)
 	if len(selectors) < n {
 		n = len(selectors)
@@ -94,22 +88,20 @@ func Compress(data, selectors []int) []int {
 
 	results := []int{}
 
-	for i := 0; i < n; i += 1 {
+	for i := 0; i < n; i++ {
 		if selectors[i] > 0 {
 			results = append(results, data[i])
 		}
 	}
 
 	return results
-
 }
 
-// DropWhile drops elements from the iterable as long as the 
+// DropWhile drops elements from the iterable as long as the
 // predicate is true; afterwards, returns every element.
 //
 //  DropWhile(is_odd, []int{1, 3, 2, 4, 5, 7, 6, 8}) -> [2 4 5 7 6 8]
 func DropWhile(predicate func(int) bool, iterable []int) []int {
-
 	results := []int{}
 
 	if predicate != nil {
@@ -125,15 +117,13 @@ func DropWhile(predicate func(int) bool, iterable []int) []int {
 	}
 
 	return results
-
 }
 
-// TakeWhile returns elements from the iterable as long as the 
+// TakeWhile returns elements from the iterable as long as the
 // predicate is true.
 //
 //  TakeWhile(is_odd, []int{1, 3, 2, 4, 5, 7, 6, 8}) -> [1, 3]
 func TakeWhile(predicate func(int) bool, iterable []int) []int {
-
 	results := []int{}
 
 	if predicate != nil {
@@ -147,7 +137,6 @@ func TakeWhile(predicate func(int) bool, iterable []int) []int {
 	}
 
 	return results
-
 }
 
 // IFilter filters elements from the iterable returning only those
@@ -157,7 +146,6 @@ func TakeWhile(predicate func(int) bool, iterable []int) []int {
 //  IFilter(is_odd, []int{1, 3, 2, 4, 5, 7, 6, 8}) -> [1 3 5 7]
 //  IFilter(nil, []int{-2, -1, 0, 1, 2} -> [1 2]
 func IFilter(predicate func(int) bool, iterable []int) []int {
-
 	results := []int{}
 
 	if predicate != nil {
@@ -175,7 +163,6 @@ func IFilter(predicate func(int) bool, iterable []int) []int {
 	}
 
 	return results
-
 }
 
 // IFilterFalse filters elements from the iterable returning only those
@@ -185,7 +172,6 @@ func IFilter(predicate func(int) bool, iterable []int) []int {
 //  IFilterFalse(is_odd, []int{1, 3, 2, 4, 5, 7, 6, 8}) -> [2 4 6 8]
 //  IFilterFalse(nil, []int{-2, -1, 0, 1, 2}) -> [-2 -1 0]
 func IFilterFalse(predicate func(int) bool, iterable []int) []int {
-
 	results := []int{}
 
 	if predicate != nil {
@@ -204,7 +190,6 @@ func IFilterFalse(predicate func(int) bool, iterable []int) []int {
 	}
 
 	return results
-
 }
 
 // IZip aggregates elements from each of the iterables.
@@ -214,7 +199,6 @@ func IFilterFalse(predicate func(int) bool, iterable []int) []int {
 // those values are important, use IZipLongest() instead.
 //  IZip([]int{10, 20, 30}, []int{1, 2, 3}) -> [[10 1] [20 2] [30 3]]
 func IZip(iterables ...[]int) [][]int {
-
 	if len(iterables) == 0 {
 		return nil
 	}
@@ -228,28 +212,25 @@ func IZip(iterables ...[]int) [][]int {
 
 	results := [][]int{}
 
-	for i := 0; i < size; i += 1 {
+	for i := 0; i < size; i++ {
 		newresult := make([]int, len(iterables))
 		for j, v := range iterables {
 			newresult[j] = v[i]
 		}
 
 		results = append(results, newresult)
-
 	}
 
 	return results
-
 }
 
 // IZipLongest aggregates elements from each of the iterables.
 //
-// If the iterables are of uneven length, missing values are 
+// If the iterables are of uneven length, missing values are
 // filled-in with fillvalue. Iteration continues until the longest
-// iterable is exhausted. 
+// iterable is exhausted.
 //  IZipLongest(0, []int{10, 20, 30}, []int{1, 2}) -> [[10 1] [20 2] [30 0]]
 func IZipLongest(fillvalue int, iterables ...[]int) [][]int {
-
 	if len(iterables) == 0 {
 		return nil
 	}
@@ -263,7 +244,7 @@ func IZipLongest(fillvalue int, iterables ...[]int) [][]int {
 
 	results := [][]int{}
 
-	for i := 0; i < size; i += 1 {
+	for i := 0; i < size; i++ {
 		newresult := make([]int, len(iterables))
 		for j, v := range iterables {
 			if i < len(v) {
@@ -271,22 +252,18 @@ func IZipLongest(fillvalue int, iterables ...[]int) [][]int {
 			} else {
 				newresult[j] = fillvalue
 			}
-
 		}
 
 		results = append(results, newresult)
-
 	}
 
 	return results
-
 }
 
 // Product returns the cartesian product of input iterables.
 //
 //  Product([]int{1, 2}, []int{3, 4}) -> [[1 3] [1 4] [2 3] [2 4]]
 func Product(args ...[]int) [][]int {
-
 	pools := args
 	npools := len(pools)
 	indices := make([]int, npools)
@@ -303,9 +280,9 @@ func Product(args ...[]int) [][]int {
 
 	for {
 		i := npools - 1
-		for ; i >= 0; i -= 1 {
+		for ; i >= 0; i-- {
 			pool := pools[i]
-			indices[i] += 1
+			indices[i]++
 
 			if indices[i] == len(pool) {
 				indices[i] = 0
@@ -325,13 +302,11 @@ func Product(args ...[]int) [][]int {
 		copy(newresult, result)
 		results = append(results, newresult)
 	}
-
-	return nil
 }
 
 // Permutations returns sucessive r length permutations of elements from
-// iterable. 
-// 
+// iterable.
+//
 // Elements are treated as unique based on their position,
 // not on their value. So if the input elements are unique, there
 // will be no repeat values in each permutation.
@@ -364,11 +339,11 @@ func Permutations(iterable []int, r int) [][]int {
 
 	for n > 0 {
 		i := r - 1
-		for ; i >= 0; i -= 1 {
-			cycles[i] -= 1
+		for ; i >= 0; i-- {
+			cycles[i]--
 			if cycles[i] == 0 {
 				index := indices[i]
-				for j := i; j < n-1; j += 1 {
+				for j := i; j < n-1; j++ {
 					indices[j] = indices[j+1]
 				}
 				indices[n-1] = index
@@ -378,7 +353,7 @@ func Permutations(iterable []int, r int) [][]int {
 				indices[i], indices[n-j] = indices[n-j], indices[i]
 
 				result := make([]int, r)
-				for k := 0; k < r; k += 1 {
+				for k := 0; k < r; k++ {
 					result[k] = pool[indices[k]]
 				}
 
@@ -391,22 +366,19 @@ func Permutations(iterable []int, r int) [][]int {
 		if i < 0 {
 			return results
 		}
-
 	}
 
 	return nil
-
 }
 
 // Combinations returns r length subsquences of elements from
-// iterable. 
+// iterable.
 //
 // Elements are treated as unique based on their position,
 // not on their value. So if the input elements are unique, there
 // will be no repeat values in each combination.
 //  Combinations([]int{1, 2, 3, 4, 5}, 4) -> [[1 2 3 4] [1 2 3 5] [1 2 4 5] [1 3 4 5] [2 3 4 5]]
 func Combinations(iterable []int, r int) [][]int {
-
 	pool := iterable
 	n := len(pool)
 
@@ -428,26 +400,23 @@ func Combinations(iterable []int, r int) [][]int {
 
 	for {
 		i := r - 1
-		for ; i >= 0 && indices[i] == i+n-r; i -= 1 {
+		for ; i >= 0 && indices[i] == i+n-r; i-- {
 		}
 
 		if i < 0 {
 			return results
 		}
 
-		indices[i] += 1
-		for j := i + 1; j < r; j += 1 {
+		indices[i]++
+		for j := i + 1; j < r; j++ {
 			indices[j] = indices[j-1] + 1
 		}
 
 		result := make([]int, r)
-		for i = 0; i < len(indices); i += 1 {
+		for i = 0; i < len(indices); i++ {
 			result[i] = pool[indices[i]]
 		}
 
 		results = append(results, result)
-
 	}
-
-	return results
 }
